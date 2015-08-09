@@ -29,14 +29,14 @@ function render ({props, state}, setState) {
     return createUser(state.user)
   }
 
-  function onSuccess () {
+  function success () {
     setState({
       loading: false,
       message: 'user created!'
     })
   }
 
-  function onFaillure (reason) {
+  function failure (reason) {
     setState({
       valid: false,
       loading: false,
