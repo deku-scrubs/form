@@ -1,0 +1,35 @@
+{
+  "name": "@deku-scrubs/form",
+  "description": "Simple deku form component",
+  "repository": "git://github.com/deku-scrubs/form.git",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify"
+      ]
+    ]
+  },
+  "dependencies": {
+    "virtual-element": "^1.1.1"
+  },
+  "devDependencies": {
+    "@deku-scrubs/standard": "*",
+    "babelify": "^6.1.3",
+    "browserify": "^11.0.1",
+    "component-empty": "0.0.1",
+    "deku": "^0.5.0",
+    "es6-promise": "^2.3.0",
+    "tape": "^4.0.3",
+    "tape-run": "^1.1.0"
+  },
+  "engines": {
+    "node": "~0.10.38",
+    "npm": "~2.9.0"
+  }
+}
