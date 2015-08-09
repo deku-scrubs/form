@@ -2,7 +2,7 @@
   "name": "@deku-scrubs/form",
   "description": "Simple deku form component",
   "repository": "git://github.com/deku-scrubs/form.git",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
