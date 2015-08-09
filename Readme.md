@@ -7,10 +7,9 @@ Simple deku form component.  It has no state of its own, and just eliminates a b
 
 ## Props
 
-  * `onSubmit` called when the form is submitted (unless the form is invalid or loading).  May return a promise, which will be used to generate `onSuccess` and `onFailure` events.
+  * `onSubmit` called when the form is submitted (unless the form is loading).  May return a promise, which will be used to generate `onSuccess` and `onFailure` events.
   * `onSuccess` if `onSubmit` returns a promise, this is called in the success case.
   * `onFailure` if `onSubmit` returns a promise, this is called in the failure case.
-  * `valid` whether or not the form is currently valid - invalid state blocks submissions
   * `loading` whether or not the form is currently processing a submission - loading state blocks submissions
 
 ## Example
@@ -18,7 +17,7 @@ Simple deku form component.  It has no state of its own, and just eliminates a b
 ```javascript
 function render ({props, state}, setState) {
   return (
-    <Form onSubmit={submit} onSuccess={success} onFailure={failure} valid={state.valid} loading={state.loading}>
+    <Form onSubmit={submit} onSuccess={success} onFailure={failure} loading={state.loading}>
       <input type='text' name='username'>
       {state.message}
     </Form>

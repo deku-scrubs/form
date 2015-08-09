@@ -33,16 +33,6 @@ test('should not submit while loading', function ({fail, end}) {
   }
 })
 
-test('should not submit while invalid', function ({fail, end}) {
-  const el = create(<Form onSubmit={onSubmit} valid={false}><button type='submit'>submit</button></Form>)
-  submit(el)
-  end()
-
-  function onSubmit () {
-    fail()
-  }
-})
-
 test('should call onSuccess/onFailure for promises', function ({equal, plan}) {
   const el1 = create(<Form onSubmit={succeed} onSuccess={onSuccess}><button type='submit'>submit</button></Form>)
   submit(el1)
