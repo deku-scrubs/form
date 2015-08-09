@@ -10,17 +10,12 @@ import {Promise} from 'es6-promise'
 import Form from '..'
 
 /**
- * Vars
- */
-let container
-
-/**
  * Tests
  */
 
 test('should call submit', function ({pass, end}) {
-  create(<Form onSubmit={onSubmit}><button type='submit'>submit</button></Form>)
-  submit()
+  const el = create(<Form onSubmit={onSubmit}><button type='submit'>submit</button></Form>)
+  submit(el)
   end()
 
   function onSubmit () {
@@ -29,8 +24,8 @@ test('should call submit', function ({pass, end}) {
 })
 
 test('should not submit while loading', function ({fail, end}) {
-  create(<Form onSubmit={onSubmit} loading={true}><button type='submit'>submit</button></Form>)
-  submit()
+  const el = create(<Form onSubmit={onSubmit} loading={true}><button type='submit'>submit</button></Form>)
+  submit(el)
   end()
 
   function onSubmit () {
@@ -39,8 +34,8 @@ test('should not submit while loading', function ({fail, end}) {
 })
 
 test('should not submit while invalid', function ({fail, end}) {
-  create(<Form onSubmit={onSubmit} valid={false}><button type='submit'>submit</button></Form>)
-  submit()
+  const el = create(<Form onSubmit={onSubmit} valid={false}><button type='submit'>submit</button></Form>)
+  submit(el)
   end()
 
   function onSubmit () {
@@ -49,11 +44,11 @@ test('should not submit while invalid', function ({fail, end}) {
 })
 
 test('should call onSuccess/onFailure for promises', function ({equal, plan}) {
-  create(<Form onSubmit={succeed} onSuccess={onSuccess}><button type='submit'>submit</button></Form>)
-  submit()
+  const el1 = create(<Form onSubmit={succeed} onSuccess={onSuccess}><button type='submit'>submit</button></Form>)
+  submit(el1)
 
-  create(<Form onSubmit={fail} onFailure={onFailure}><button type='submit'>submit</button></Form>)
-  submit()
+  const el2 = create(<Form onSubmit={fail} onFailure={onFailure}><button type='submit'>submit</button></Form>)
+  submit(el2)
 
   plan(2)
 
@@ -72,13 +67,13 @@ test('should call onSuccess/onFailure for promises', function ({equal, plan}) {
 
 function create (component) {
   empty(document.body)
-  container = document.body.appendChild(document.createElement('div'))
+  const container = document.body.appendChild(document.createElement('div'))
   render(tree(component), container)
-  return container.querySelector('form')
+  return container
 }
 
-function submit () {
-  const btn = container.querySelector('button[type="submit"]')
+function submit (el) {
+  const btn = el.querySelector('button[type="submit"]')
   btn.click()
 }
 
