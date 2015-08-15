@@ -16,6 +16,8 @@
     ]
   },
   "dependencies": {
+    "form-serialize": "^0.6.0",
+    "magic-virtual-element": "^1.0.4",
     "virtual-element": "^1.1.1"
   },
   "devDependencies": {

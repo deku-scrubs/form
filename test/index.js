@@ -6,7 +6,6 @@ import test from 'tape'
 import {tree, render} from 'deku'
 import empty from 'component-empty'
 import element from 'virtual-element'
-import {Promise} from 'es6-promise'
 import Form from '..'
 
 /**
@@ -33,24 +32,6 @@ test('should not submit while loading', function ({fail, end}) {
   }
 })
 
-test('should call onSuccess/onFailure for promises', function ({equal, plan}) {
-  const el1 = create(<Form onSubmit={succeed} onSuccess={onSuccess}><button type='submit'>submit</button></Form>)
-  submit(el1)
-
-  const el2 = create(<Form onSubmit={fail} onFailure={onFailure}><button type='submit'>submit</button></Form>)
-  submit(el2)
-
-  plan(2)
-
-  function onSuccess (msg) {
-    equal(msg, 'success')
-  }
-
-  function onFailure (msg) {
-    equal(msg, 'failure')
-  }
-})
-
 /**
  * Helpers
  */
@@ -67,10 +48,3 @@ function submit (el) {
   btn.click()
 }
 
-function succeed () {
-  return (new Promise(resolve => resolve('success')))
-}
-
-function fail () {
-  return (new Promise((resolve, reject) => reject('failure')))
-}
