@@ -16,7 +16,9 @@
     ]
   },
   "dependencies": {
+    "es6-promise": "^2.3.0",
     "form-serialize": "^0.6.0",
+    "is-promise": "^2.0.0",
     "magic-virtual-element": "^1.0.4",
     "virtual-element": "^1.1.1"
   },
