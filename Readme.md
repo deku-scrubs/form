@@ -29,10 +29,10 @@ function render ({state}) {
 
 ### Props
 
-  * `onSubmit` [Function] - Handle the submit event.  Is not called when the form is invalid or `loading` is true.
-  * `validate` [Function] - Expects a model, and returns `{valid: Boolean, errors: [{field: String, message: String}]}`.
-  * `cast` [Function] - A casting function that accepts the model and outputs a new model.  Called before the model is passed to `validate` and `onSubmit`.
-  * `loading` [Boolean] - Indicates whether or not the form is currently processing an asynchronous action.
+  * `onSubmit` - Handle the submit event.  Is not called when the form is invalid or `loading` is true.
+  * `validate` - Expects a model, and returns `{valid: Boolean, errors: [{field: String, message: String}]}`.
+  * `cast` - A casting function that accepts the model and outputs a new model.  Called before the model is passed to `validate` and `onSubmit`.
+  * `loading` - Indicates whether or not the form is currently processing an asynchronous action.
 
 
 ### Nested fields
