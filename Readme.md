@@ -48,7 +48,7 @@ function render ({state}) {
 
 ### Nested fields
 
-Nested field names use the 'square' syntax defined in this module: dominicbarnes/square.
+Nested field names use the 'square' syntax defined in this module: [dominicbarnes/square](https://github.com/dominicbarnes/square).
 
 ## Custom form controls
 
