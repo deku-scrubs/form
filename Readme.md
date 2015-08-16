@@ -3,60 +3,58 @@
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
-Simple deku form component.  It has no state of its own, and just eliminates a bit of the boilerplate of writing form components.  It is promise-aware, and will translate a promise-returning submit function into `onSuccess` and `onFailure` events.
+Deku form component.  Supports validation and casting.
 
-## Props
-
-  * `onSubmit` called when the form is submitted (unless the form is loading).  May return a promise, which will be used to generate `onSuccess` and `onFailure` events.
-  * `onSuccess` if `onSubmit` returns a promise, this is called in the success case.
-  * `onFailure` if `onSubmit` returns a promise, this is called in the failure case.
-  * `loading` whether or not the form is currently processing a submission - loading state blocks submissions
-
-## Example
+## Usage
 
 ```javascript
-function render ({props, state}, setState) {
+function render ({state}) {
+  const {loading} = state
+
   return (
-    <Form onSubmit={submit} onSuccess={success} onFailure={failure} loading={state.loading}>
-      <input type='text' name='username'>
-      {state.message}
+    <Form onSubmit={handleSubmit} validate={validateUser} cast={castUser} loading={loading}>
+      <TextField name='email' />
+      <TextField name='password' />
     </Form>
   )
 
-  function submit () {
-    setState({loading: true})
-    return createUser(state.user)
-  }
-
-  function success () {
-    setState({
-      loading: false,
-      message: 'user created!'
-    })
-  }
-
-  function failure (reason) {
-    setState({
-      valid: false,
-      loading: false,
-      message: 'user creation failed (' + reason + ')')
+  function handleSubmit (user, handleError) {
+    dispatch('create_user', {
+      onSuccess: handler('user_created'),
+      onFailure: handleError
     })
   }
 }
 ```
 
-## Installation
+### Props
 
-    $ npm install @deku-scrubs/form
+  * `onSubmit` [Function] - Handle the submit event.  Is not called when the form is invalid or `loading` is true.
+  * `validate` [Function] - Expects a model, and returns `{valid: Boolean, errors: [{field: String, message: String}]}`.
+  * `cast` [Function] - A casting function that accepts the model and outputs a new model.  Called before the model is passed to `validate` and `onSubmit`.
+  * `loading` [Boolean] - Indicates whether or not the form is currently processing an asynchronous action.
 
-## License
 
-The MIT License
+### Nested fields
 
-Copyright &copy; 2015, Weo.io &lt;info@weo.io&gt;
+Nested field names use the 'square' syntax defined in this module: dominicbarnes/square.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+## Custom form controls
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+If you want to make your own form controls that work with this `Form` component, all they need to do is listen for the `onInvalid` event, and then display the error specified by `control.validationMessage`, and optionally clear that validation message using `setCustomValidity` on any change.  That's it.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```javascript
+function render ({state}, setState) {
+  return (
+    <input type='text' onChange={handleChange} onInvalid={handleInvalid} />
+  )
+
+  function handleChange (e) {
+    e.target.setCustomValidity('')
+  }
+
+  function handleInvalid (e) {
+    setState({error: e.target.validationMessage})
+  }
+}
+```
