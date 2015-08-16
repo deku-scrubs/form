@@ -31,17 +31,19 @@ function render ({state}) {
 
   * `onSubmit` - Handle the submit event.  Is not called when the form is invalid or `loading` is true.
   * `validate` - Expects a model, and returns:
-      ```javascript
-        {
-          valid: Boolean,
-          errors: [
-            {
-              field: String,
-              message: String
-            }
-          ]
-        }
-        ```.
+
+```javascript
+{
+  valid: Boolean,
+  errors: [
+    {
+      field: String,
+      message: String
+    }
+  ]
+}
+```
+  
   * `cast` - A casting function that accepts the model and outputs a new model.  Called before the model is passed to `validate` and `onSubmit`.
   * `loading` - Indicates whether or not the form is currently processing an asynchronous action.
 
